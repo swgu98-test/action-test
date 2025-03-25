@@ -2,7 +2,6 @@ name: Check PR Template
 
 on:
   pull_request_target:
-    branches: [develop]
     types: [opened, synchronize, reopened, edited]
 
 env:
