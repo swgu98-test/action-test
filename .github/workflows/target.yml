@@ -38,9 +38,12 @@ jobs:
     - name: Get commit information
       run: |
         # 获取最近一次提交的信息
-        COMMIT_HASH=$(git log -1 --pretty=format:"%H")
-        AUTHOR_NAME=$(git log -1 --pretty=format:"%an")
-        COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+        # COMMIT_HASH=$(git log -1 --pretty=format:"%H")
+        # AUTHOR_NAME=$(git log -1 --pretty=format:"%an")
+        # COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+        COMMIT_HASH=$(git log -2 --pretty=format:"%H" | tail -n 1)
+        AUTHOR_NAME=$(git log -2 --pretty=format:"%an" | tail -n 1)
+        COMMIT_MESSAGE=$(git log -2 --pretty=format:"%s" | tail -n 1)
 
         # 生成 JSON 结构
         COMMIT_JSON="[{\"Commit\":\"$COMMIT_HASH\",\"author\":\"$AUTHOR_NAME\",\"comment\":\"$COMMIT_MESSAGE\"}]"
