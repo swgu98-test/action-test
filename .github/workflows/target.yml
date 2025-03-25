@@ -18,7 +18,7 @@ jobs:
     - name: Clone paddle
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.pull_request.head.ref }}
+        ref: refs/pull/${{ github.event.pull_request.number }}/merge
 
     - name: Setup Python
       uses: actions/setup-python@v5
@@ -32,4 +32,9 @@ jobs:
 
     - name: Check PR Template
       run: |
-        echo aaa
+        echo ${{ github.event.pull_request.head.ref }}
+        echo ${{ github.ref }}
+        echo ${{ github.head_ref }}
+        echo ${{ github.base_ref }}
+        echo ${{ github.event.pull_request.base.ref }}
+        
