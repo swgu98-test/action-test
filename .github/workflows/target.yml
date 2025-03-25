@@ -37,18 +37,13 @@ jobs:
         echo ${{ github.event.pull_request.user.login }}
 
     - name: Get commit information
+      env:
+        AGILE_CHECKIN_AUTHOR: ${{ github.event.pull_request.user.login }}
+        AGILE_REVISION: ${{ github.event.pull_request.head.sha }}
       run: |
-        git log
-        # 获取最近一次提交的信息
-        # COMMIT_HASH=$(git log -1 --pretty=format:"%H")
-        # AUTHOR_NAME=$(git log -1 --pretty=format:"%an")
-        # COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
-        COMMIT_HASH=$(git log -2 --pretty=format:"%H" | tail -n 1)
-        AUTHOR_NAME=$(git log -2 --pretty=format:"%an" | tail -n 1)
-        COMMIT_MESSAGE=$(git log -2 --pretty=format:"%s" | tail -n 1)
-
+        COMMIT_MESSAGE=$(git show -s --format='%s' $AGILE_REVISION)
         # 生成 JSON 结构
-        COMMIT_JSON="[{\"Commit\":\"$COMMIT_HASH\",\"author\":\"$AUTHOR_NAME\",\"comment\":\"$COMMIT_MESSAGE\"}]"
+        COMMIT_JSON="[{\"Commit\":\"$AGILE_REVISION\",\"author\":\"$AGILE_CHECKIN_AUTHOR\",\"comment\":\"$COMMIT_MESSAGE\"}]"
         echo "COMMIT_JSON=$COMMIT_JSON" >> $GITHUB_ENV
 
     - name: Output commit JSON
