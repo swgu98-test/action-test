@@ -20,12 +20,6 @@ jobs:
       with:
         ref: refs/pull/${{ github.event.pull_request.number }}/merge
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'
-        cache: 'pip'
-
     - name: Install dependencies
       run: |
         pip install httpx
