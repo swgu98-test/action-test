@@ -23,6 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install httpx
+        ll
 
     - name: Check PR Template
       run: |
