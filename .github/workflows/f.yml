@@ -1,0 +1,13 @@
+name: first
+
+on:
+  pull_request:
+
+jobs:
+  job0:
+    name: first
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update paddle
+        run: |
+          echo first
