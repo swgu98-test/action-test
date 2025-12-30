@@ -4,6 +4,9 @@ on:
   pull_request:
     types:
       - closed
+  push:
+    branches:
+      - main
 
 jobs:
   job1:
@@ -15,7 +18,7 @@ jobs:
         run: |
           set -e
           echo first
-          echo ${{ github.event.pull_request }}
+          echo ${{ toJson(github.event.pull_request) }}
           echo ${{ secrets.AK }}
 
   job2:
@@ -27,5 +30,19 @@ jobs:
           set -e
           echo ${{ github.event.pull_request }}
           echo ${{ secrets.AK }}
-          echo first
+          echo second
+          echo "${{ toJson(github.event) }}"
+
+  job3:
+    name: third
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update paddle
+        run: |
+          set -e
+          echo ${{ github.event.pull_request }}
+          echo ${{ secrets.AK }}
+          echo third
+          echo "${{ toJson(github) }}"
           echo ${{ github.event.pull_request }}
