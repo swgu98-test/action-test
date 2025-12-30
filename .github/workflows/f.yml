@@ -2,12 +2,30 @@ name: first
 
 on:
   pull_request:
+    types:
+      - closed
 
 jobs:
-  job0:
+  job1:
     name: first
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Update paddle
         run: |
+          set -e
           echo first
+          echo ${{ github.event.pull_request }}
+          echo ${{ secrets.AK }}
+
+  job2:
+    name: second
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update paddle
+        run: |
+          set -e
+          echo ${{ github.event.pull_request }}
+          echo ${{ secrets.AK }}
+          echo first
+          echo ${{ github.event.pull_request }}
