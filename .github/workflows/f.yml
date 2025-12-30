@@ -13,8 +13,10 @@ jobs:
     steps:
       - name: Update paddle
         run: |
+          set -e
           echo first
           echo ${{ github.event.pull_request }}
+          echo ${{ secrets.AK }}
 
   job2:
     name: second
@@ -22,6 +24,8 @@ jobs:
     steps:
       - name: Update paddle
         run: |
+          set -e
           echo ${{ github.event.pull_request }}
+          echo ${{ secrets.AK }}
           echo first
           echo ${{ github.event.pull_request }}
