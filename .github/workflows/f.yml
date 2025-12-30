@@ -25,6 +25,7 @@ jobs:
       - name: Update paddle
         run: |
           set -x
+          echo ${{ github.event_name }}
           echo "${{ github.event.pull_request }}"
           echo ${{ secrets.AK }}
           echo second
