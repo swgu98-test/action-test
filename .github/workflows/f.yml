@@ -25,10 +25,11 @@ jobs:
       - name: Update paddle
         run: |
           set -x
-          echo ${{ github.event_name }}
-          echo "${{ github.event.pull_request }}"
-          echo ${{ secrets.AK }}
-          echo second
+          set +e
+          wget https://xly-devops.cdn.bcebos.com/PaddleFleet/precision/lastest/precision_list.txt
+          if [ $? -eq 0 ]; then
+            echo "right"
+          fi
 
   job3:
     name: third
