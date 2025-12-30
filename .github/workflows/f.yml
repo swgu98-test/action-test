@@ -28,7 +28,6 @@ jobs:
           echo "${{ github.event.pull_request }}"
           echo ${{ secrets.AK }}
           echo second
-          echo "${{ toJson(github.event) }}"
 
   job3:
     name: third
@@ -46,10 +45,8 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/swgu98-test/action-test/commits/${{ github.sha }}/pulls)
           echo $response
-          pr=$(echo $response | jq -r '.url')
-          echo $pr
-          echo "${{ toJson(github) }}"
-          echo "${{ github.event.pull_request }}"
+          pr_number=$(echo $res | jq -r '.[0].url' | awk -F'/' '{print $NF}')
+          echo $pr_number
 
 
 
