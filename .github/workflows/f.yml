@@ -25,6 +25,7 @@ jobs:
       - name: Update paddle
         run: |
           set -x
+          echo ${{ github.event_name }}
           echo "${{ github.event.pull_request }}"
           echo ${{ secrets.AK }}
           echo second
@@ -47,6 +48,10 @@ jobs:
           echo $response
           pr_number=$(echo $res | jq -r '.[0].url' | awk -F'/' '{print $NF}')
           echo $pr_number
+
+  job4:
+    name: forth
+    uses: ./.github/workflows/call.yml
 
 
 
