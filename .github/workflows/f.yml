@@ -39,14 +39,19 @@ jobs:
         run: |
           set -x
           echo ${{ github.sha }}
-          echo "${{ github.event.push.after }}"
+          echo "${{ github.event.after }}"
           response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer $GITHUB_TOKEN" \
+          -H "Authorization: Bearer ${{ github.token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/OWNER/REPO/commits/${{ github.sha }}/pulls)
+          https://api.github.com/repos/swgu98-test/action-test/commits/${{ github.sha }}/pulls)
           echo $response
           pr=$(echo $response | jq -r '.url')
           echo $pr
           echo "${{ toJson(github) }}"
           echo "${{ github.event.pull_request }}"
+
+
+
+
+
